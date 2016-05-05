@@ -7,6 +7,8 @@
 #define TAM_SETOR 512
 #define TAM_CLUSTER 4
 /******************************/
+#define CILINDROS (TRILHA_SUPERFICIE/2)
+/******************************/
 
 typedef struct block{
   unsigned char bytes_s[TAM_SETOR];
