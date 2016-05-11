@@ -1,3 +1,6 @@
+#ifndef HARD_DRIVE_MOD
+#define HARD_DRIVE_MOD
+
 /******************************/
 /*Especificações HD           */
 /******************************/
@@ -24,3 +27,5 @@ typedef struct sector_array{
 typedef struct track_array{
   sector_array track[TRILHA_CILINDRO];
 } track_array;
+
+#endif //HARD_DRIVE_MOD
