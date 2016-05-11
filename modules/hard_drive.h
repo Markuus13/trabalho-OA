@@ -4,10 +4,13 @@
 #define TRILHA_CILINDRO 5
 #define SETOR_TRILHA 60
 #define TRILHA_SUPERFICIE 10
-#define TAM_SETOR 512
-#define TAM_CLUSTER 4
+#define TAM_SETOR 512//bytes
+#define TAM_CLUSTER 4//setores
 /******************************/
-#define CILINDROS (TRILHA_SUPERFICIE/2)
+#define TEMPO_MEDIO_SEEK 4//ms
+#define TEMPO_MIN_SEEK 1//ms
+#define TEMPO_MEDIO_LATENCIA 6//ms
+#define TEMPO_TRANSFERENCIA 12//ms/trilha
 /******************************/
 
 typedef struct block{

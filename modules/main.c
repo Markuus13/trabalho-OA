@@ -10,7 +10,7 @@ char get_menu_option(void);
 int main(void) {
   char option = 0;
 
-  track_array cylinder[CILINDROS];
+  track_array *cylinder;
 
   do{
     option = get_menu_option();
