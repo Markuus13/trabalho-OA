@@ -4,15 +4,22 @@
 #include "hard_drive.h"
 #include "logic_drive.h"
 
+/*Inicia disco rigido*/
+track_array c[TRILHA_SUPERFICIE];
+track_array *cylinder = c;
+
+fatent blocks[SETOR_TRILHA];
+fatlist archives[100];
+
 void show_menu(void);
 
 char get_menu_option(void);
 
 int main(void) {
   char option = 0;
-  /*Inicia disco rigido*/
-  track_array c[TRILHA_SUPERFICIE];
-  track_array *cylinder = c;
+
+  archives[0].file_name[0] = 'D';
+  archives[0].first_sector = 0;
 
   do{
     option = get_menu_option();

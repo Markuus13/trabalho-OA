@@ -1,3 +1,5 @@
+#include "logic_drive.h"
+
 #ifndef HARD_DRIVE_MOD
 #define HARD_DRIVE_MOD
 
@@ -27,5 +29,14 @@ typedef struct sector_array{
 typedef struct track_array{
   sector_array track[TRILHA_CILINDRO];
 } track_array;
+
+typedef struct cluster{
+  block* array_block;
+}cluster;
+
+extern fatent blocks[SETOR_TRILHA];
+extern track_array *cylinder;
+
+cluster get_cluster();
 
 #endif //HARD_DRIVE_MOD

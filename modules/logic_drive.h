@@ -1,5 +1,3 @@
-#include "hard_drive.h"
-
 //QUANT_CLUSTERS ( (SETOR_TRILHA/TAM_CLUSTER)*TRILHA_SUPERFICIE*TRILHA_CILINDRO )
 #ifndef LOGIC_DRIVE_MOD
 #define LOGIC_DRIVE_MOD
@@ -14,6 +12,8 @@ typedef struct fatent_s{
   unsigned int eof;
   unsigned int next;
 }fatent;
+
+extern fatlist archives[100];
 
 void write_file();
 
