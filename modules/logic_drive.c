@@ -30,12 +30,14 @@ void write_file(){
         printf("Erro inesperado,\n");
         printf("Sem espaço no disco\n");
         break;
-      }
-      //Get the cluster and write into his blocks
-      //while not reach end of file
-      for(control = 0 ; control < TAM_SETOR && !feof(file) ; control++ ){
-        fscanf(file, "%c", &block);
-        printf("%c\n", block);
+      }else{
+        //Get the cluster and write into his blocks
+        //while not reach end of file
+        puts("Escrevendo");
+        for(control = 0 ; control < TAM_SETOR && !feof(file) ; control++ ){
+          fscanf(file, "%c", &block);
+          printf("%c\n", block);
+        }
       }
     }while( !feof(file) );
 

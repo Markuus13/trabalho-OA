@@ -7,7 +7,7 @@ flags = -Wall
 
 all: logic_drive.o hard_drive.o
 	$(compiler) $(flags) $(mode) $(dir)main.c logic_drive.o hard_drive.o -o $(name)
-	./$(name)
+	#./$(name)
 
 logic_drive.o:
 	$(compiler) -c $(dir)logic_drive.c
