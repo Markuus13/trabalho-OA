@@ -1,0 +1,16 @@
+300
+
+60 trilha
+300 superficie
+
+1 setor
+1 trilha
+5 superficie
+---------------
+
+setor_por_trilha = max_setores/(trilhas*superficies)
+
+
+
+60x5 ( quant trilhas)
+300x10
