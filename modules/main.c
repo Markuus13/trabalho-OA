@@ -23,6 +23,14 @@ int main(void) {
   archives[12].file_name[0] = 'D';
   archives[12].first_sector = 0;
 
+  blocks[0].used = 1;
+  blocks[0].eof = 1;
+  blocks[0].next = 1;
+
+  blocks[1].used = 1;
+  blocks[1].eof = 1;
+  blocks[1].next = 0;
+
   do{
     option = get_menu_option();
     switch( option ){
@@ -56,7 +64,7 @@ int main(void) {
 
 void show_menu(void){
   printf("***********************\n");
-  printf("*      HARD DISK     *\n");
+  printf("*       HARD DISK     *\n");
   printf("***********************\n");
 
   printf("1 - Escrever Arquivo\n");
@@ -71,6 +79,7 @@ char get_menu_option(void){
   do{
     system("clear");
     show_menu();
+    printf("--> ");
     scanf("%c", &option);
   }while( option < '1' || option > '5' );
   return option;

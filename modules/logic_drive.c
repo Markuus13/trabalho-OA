@@ -70,10 +70,11 @@ void read_file(){
 
       do{
         //Calculte postion on hard disk
-        fprintf(file, "%s", cylinder[z].track[y].sector[x]);
+        fprintf(file, "%s", cylinder[index/300].track[index%300/60].sector[index%300%60].bytes_s);
+        //fprintf(file, "%s", cylinder[z].track[y].sector[x]);
         //Get index new block
-        if( block[index].eof != 1 ){
-          index = block[index].next;
+        if( blocks[index].eof != 1 ){
+          index = blocks[index].next;
         }else{
           break;
         }
@@ -93,46 +94,63 @@ void read_file(){
 
 void erase_file(){
   char name[20];
-  unsigned short int index, hold;
+  unsigned short int index, hold, control;
 
   printf("Entre com nome do arquivo : ");
   scanf("%s", name);
 
   //Search for the name in Fat table
   for(index = 0 ; index < QUANT_MAX_ARQ ; index++)
-    if( !strcmp(name, archives[0].file_name) )
+    if( !strcmp(name, archives[index].file_name) )
       break;
 
   if( index == QUANT_MAX_ARQ){
     printf("Arquivo não encontrado!!!\n");
   }else{
+    hold = index;
     index = archives[index].first_sector;
     do{
-      hold = index;
+      //printf("index:%d\n", index);
+      control = index;
+      //printf("used:%d\teof:%d\tnext:%d\n",blocks[control].used, blocks[control].eof, blocks[control].next);
 
-      blocks[hold].used = 0;
-      blocks[hold].eof = 0;
+      blocks[control].used = 0;
+      blocks[control].eof = 0;
 
-      index = blocks[hold].next;
-      blocks[hold].next = 0;
-
+      index = blocks[control].next;
+      blocks[control].next = 0;
+      //printf("used:%d\teof:%d\tnext:%d\n\n",blocks[control].used, blocks[control].eof, blocks[control].next);
     }while( index != 0 );
+
     //Erase file name
     for(index = 0 ; index < 100 ; index++)
-      archives[0].file_name[index] = '\0';
+      archives[hold].file_name[index] = '\0';
 
+    printf("Sucesso na deleção!!\n");
   }
-
 
   getchar();
   getchar();
 }
 
 void show_fat_table(){
+  unsigned short int index, index_sector;
   printf("***********************\n");
   printf("*       FAT TABLE     *\n");
   printf("***********************\n");
   printf("NOME:\t\tTAMANHO EM DISCO\t\tLOCALIZAÇÂO\t\n");
+
+  for(index = 0 ; index < QUANT_MAX_ARQ ; index++ ){
+    if( archives[index].file_name[0] != '\0' ){
+      printf("%s\t", archives[index].file_name);
+      index_sector = archives[index].first_sector;
+      do{
+        printf("%d ", index_sector);
+        index_sector = blocks[index_sector].next;
+      }while( index_sector != 0 );
+      printf("\n");
+    }
+  }
 
   getchar();
   getchar();
