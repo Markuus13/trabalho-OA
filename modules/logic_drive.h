@@ -2,6 +2,7 @@
 #ifndef LOGIC_DRIVE_MOD
 #define LOGIC_DRIVE_MOD
 
+/** FAT Table **/
 typedef struct fatlist_s {
   char file_name[100];
   unsigned int first_sector;

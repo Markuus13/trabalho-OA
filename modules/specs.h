@@ -16,5 +16,9 @@
 #define TEMPO_MEDIO_LATENCIA 6//ms
 #define TEMPO_TRANSFERENCIA 12//ms/trilha
 /******************************/
+#define TOTAL_SETORES 3000		/* Total de Setores no HD */
+#define TOTAL_CILINDROS TRILHA_SUPERFICIE		/* Total de cilindros no HD */
+#define TRILHAS_POR_CIL TRILHA_CILINDRO		/* Trilhas por cilindro */
+#define SETORES_POR_TRI SETOR_TRILHA		/* Setores por trilha */
 
 #endif //SPECS_MOD
