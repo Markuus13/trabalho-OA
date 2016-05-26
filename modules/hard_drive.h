@@ -25,6 +25,6 @@ typedef struct cluster{
 extern fatent blocks[SETOR_TRILHA];
 extern track_array *cylinder;
 
-cluster get_cluster();
+cluster get_cluster(cluster *,const char *);
 
 #endif //HARD_DRIVE_MOD

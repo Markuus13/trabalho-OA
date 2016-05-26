@@ -2,7 +2,7 @@ compiler = clang
 name = my_disk.cpp
 dir = modules/
 mode = -std=c99
-flags = -Wall
+flags = -Wall -g
 #mode = -ansi
 
 all: logic_drive.o hard_drive.o

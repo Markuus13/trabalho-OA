@@ -6,14 +6,17 @@
 #include "hard_drive.h"
 
 void write_file(){
-  char name[20], block;
-  int control;
+  char nome_arquivo[20], block;
+  int control, index;
   FILE *file;
   cluster cluster_block;
+  /*Inicialization*/
+  cluster_block.array_block = NULL;
+  /****************/
 
   printf("Entre com nome do arquivo : ");
-  scanf("%s", name);
-  file = fopen(name, "r");
+  scanf("%s", nome_arquivo);
+  file = fopen(nome_arquivo, "r");
 
   if(file == NULL){
     system("clear");
@@ -24,19 +27,21 @@ void write_file(){
   }else{
     //Split the file into blocks
     do{
-      cluster_block = get_cluster();
+      //Get the cluster and write into his blocks
+      //while not reach end of file
+      cluster_block = get_cluster( &cluster_block, nome_arquivo);
       if( cluster_block.array_block == NULL ){
         //No more space in disk
-        printf("Erro inesperado,\n");
-        printf("Sem espaço no disco\n");
+        printf("Inexpected erro,\n");
+        printf("No space on disk!!!\n");
         break;
       }else{
-        //Get the cluster and write into his blocks
-        //while not reach end of file
         puts("Escrevendo");
-        for(control = 0 ; control < TAM_SETOR && !feof(file) ; control++ ){
-          fscanf(file, "%c", &block);
-          printf("%c\n", block);
+        for( index = 0 ; index < TAM_CLUSTER ; index++ ){
+          for( control = 0 ; !feof(file) && control < TAM_SETOR ; control++ ){
+            fscanf(file, "%c", &cluster_block.array_block[index].bytes_s[control] );
+            printf("%c\n", cluster_block.array_block[index].bytes_s[control] );
+          }
         }
       }
     }while( !feof(file) );
@@ -70,6 +75,7 @@ void read_file(){
 
       do{
         //Calculte postion on hard disk
+        printf("index:%d\ncylinder:%d\ttrack:%d\tsector:%d\n", index, index/300, index%300/60, index%300%60);
         fprintf(file, "%s", cylinder[index/300].track[index%300/60].sector[index%300%60].bytes_s);
         //fprintf(file, "%s", cylinder[z].track[y].sector[x]);
         //Get index new block
@@ -78,7 +84,6 @@ void read_file(){
         }else{
           break;
         }
-        break;
       }while(1);
 
       fclose(file);
