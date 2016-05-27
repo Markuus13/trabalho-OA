@@ -19,9 +19,9 @@ cluster get_cluster(cluster *clust, const char *nome_arquivo){
           break;
         }// if
       }// for
-      if( blocks[z + y + x].used == 0 ) break;
+      if( blocks[z*300 + y*60 + x].used == 0 ) break;
     }// for
-    if( blocks[z + y + x].used == 0 ) break;
+    if( blocks[z*300 + y*60 + x].used == 0 ) break;
   }//for
 
   /*If its the first cluster*/
