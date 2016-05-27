@@ -1,9 +1,10 @@
 /*
 *	Disciplina: Organização de Arquivos
 *	Semestre: 1/2016
-*	Prof: André Drummond
+*	Professor: André Drummond
 *	Título: Simulação de Disco Magnético Rígido
-*
+* Alunos: Danilo Santos     140135910
+          Marcus Vinicius   
 */
 
 #include <stdio.h>
@@ -26,23 +27,6 @@ char get_menu_option(void);
 
 int main(void) {
   char option = 0;
-
-  /*
-  archives[12].file_name[0] = 'D';
-  archives[12].first_sector = 0;
-  blocks[0].used = 1; blocks[0].eof = 1; blocks[0].next = 1;
-  blocks[1].used = 1; blocks[1].eof = 1; blocks[1].next = 0;
-
-  archives[11].file_name[0] = 'B';
-  archives[11].first_sector = 5;
-  cylinder[5/300].track[5%300/60].sector[5%300%60].bytes_s[0] = 'B';
-  cylinder[5/300].track[5%300/60].sector[5%300%60].bytes_s[1] = 'O';
-  cylinder[6/300].track[6%300/60].sector[6%300%60].bytes_s[0] = 'B';
-  cylinder[6/300].track[6%300/60].sector[6%300%60].bytes_s[1] = 'O';
-  blocks[5].used = 1; blocks[5].eof = 0; blocks[5].next = 6;
-  blocks[6].used = 1; blocks[6].eof = 0; blocks[6].next = 7;
-  blocks[7].used = 1; blocks[7].eof = 1; blocks[7].next = 0;
-  */
 
   do{
     option = get_menu_option();

@@ -32,7 +32,7 @@ void write_file(){
       cluster_block = get_cluster( &cluster_block, nome_arquivo);
       if( cluster_block.array_block == NULL ){
         //No more space in disk
-        printf("Inexpected erro,\n");
+        printf("Inexpected error,\n");
         printf("No space on disk!!!\n");
         break;
       }else{
@@ -40,7 +40,7 @@ void write_file(){
         for( index = 0 ; index < TAM_CLUSTER ; index++ ){
           for( control = 0 ; !feof(file) && control < TAM_SETOR ; control++ ){
             fscanf(file, "%c", &cluster_block.array_block[index].bytes_s[control] );
-            printf("%c\n", cluster_block.array_block[index].bytes_s[control] );
+            //printf("%c\n", cluster_block.array_block[index].bytes_s[control] );
           }
         }
       }
@@ -77,7 +77,6 @@ void read_file(){
         //Calculte postion on hard disk
         printf("index:%d\ncylinder:%d\ttrack:%d\tsector:%d\n", index, index/300, index%300/60, index%300%60);
         fprintf(file, "%s", cylinder[index/300].track[index%300/60].sector[index%300%60].bytes_s);
-        //fprintf(file, "%s", cylinder[z].track[y].sector[x]);
         //Get index new block
         if( blocks[index].eof != 1 ){
           index = blocks[index].next;
@@ -115,23 +114,21 @@ void erase_file(){
     hold = index;
     index = archives[index].first_sector;
     do{
-      //printf("index:%d\n", index);
+
       control = index;
-      //printf("used:%d\teof:%d\tnext:%d\n",blocks[control].used, blocks[control].eof, blocks[control].next);
 
       blocks[control].used = 0;
       blocks[control].eof = 0;
 
       index = blocks[control].next;
       blocks[control].next = 0;
-      //printf("used:%d\teof:%d\tnext:%d\n\n",blocks[control].used, blocks[control].eof, blocks[control].next);
     }while( index != 0 );
 
     //Erase file name
     for(index = 0 ; index < 100 ; index++)
       archives[hold].file_name[index] = '\0';
 
-    printf("Sucesso na deleção!!\n");
+    printf("Sucess on delection!!\n");
   }
 
   getchar();
