@@ -1,4 +1,4 @@
-compiler = clang
+compiler = gcc
 name = my_disk.cpp
 dir = modules/
 mode = -std=c99
