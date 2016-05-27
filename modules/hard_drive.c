@@ -11,10 +11,10 @@ cluster get_cluster(cluster *clust, const char *nome_arquivo){
   cluster new_cluster;
 
   //Search for a free cluster/sector
-  for(z = 0 ; (z < TRILHA_CILINDRO) ; z++){
-    for(y = 0 ; (y < TRILHA_SUPERFICIE) ; y++){
-      for(x = 0 ; (x < SETOR_TRILHA) ; x += TAM_CLUSTER){
-        if( blocks[z + y + x].used == 0 ){
+  for(z = 0 ; (z < TRILHA_SUPERFICIE) ; z++){ /* Cylinder */
+    for(y = 0 ; (y < TRILHA_CILINDRO) ; y++){  /* Tracks */
+      for(x = 0 ; (x < SETOR_TRILHA) ; x += TAM_CLUSTER){ /* Clusters (tracks) */
+        if( blocks[z*300 + y*60 + x].used == 0 ){
           new_cluster.array_block = cylinder[z].track[y].sector + x;
           break;
         }// if

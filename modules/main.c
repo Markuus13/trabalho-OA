@@ -17,9 +17,9 @@
 track_array c[TRILHA_SUPERFICIE];
 track_array *cylinder = c;
 //Table of used sectors
-fatent blocks[SETOR_TRILHA];
+fatent blocks[TOTAL_SETORES];
 //Table with file name and first sector
-fatlist archives[QUANT_MAX_ARQ];
+fatlist archives[TOTAL_SETORES];
 
 void show_menu(void);
 
