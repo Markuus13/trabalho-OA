@@ -25,13 +25,13 @@ void write_file(){
     getchar();
     return /*void*/;
   }else{
-    //Split the file into blocks
+    /* Split the file into blocks */
     do{
-      //Get the cluster and write into his blocks
-      //while not reach end of file
+      /* Get the cluster and write into his blocks
+       * while not reach end of file */
       cluster_block = get_cluster( &cluster_block, nome_arquivo);
       if( cluster_block.array_block == NULL ){
-        //No more space in disk
+        /* No more space in disk */
         printf("Inexpected error,\n");
         printf("No space on disk!!!\n");
         break;
@@ -40,7 +40,7 @@ void write_file(){
         for( index = 0 ; index < TAM_CLUSTER ; index++ ){
           for( control = 0 ; !feof(file) && control < TAM_SETOR ; control++ ){
             fscanf(file, "%c", &cluster_block.array_block[index].bytes_s[control] );
-            //printf("%c\n", cluster_block.array_block[index].bytes_s[control] );
+            /* printf("%c\n", cluster_block.array_block[index].bytes_s[control] ); */
           }
         }
       }
@@ -59,7 +59,7 @@ void read_file(){
   printf("Entre com nome do arquivo : ");
   scanf("%s", name);
 
-  //Search for the name in Fat table
+  /* Search for the name in Fat table */
   for(index = 0 ; index < QUANT_MAX_ARQ ; index++)
     if( !strcmp(name, archives[index].file_name) )
       break;
@@ -70,11 +70,11 @@ void read_file(){
       printf("Não foi possivel montar arquivo de saida\n");
       return /*void*/;
     }else{
-      //Write the archive into a file
+      /* Write the archive into a file */
       index = archives[index].first_sector;
 
       do{
-        //Calculte postion on hard disk
+        /* Calculte postion on hard disk */
         printf("index:%d\ncylinder:%d\ttrack:%d\tsector:%d\n", index, index/300, index%300/60, index%300%60);
         fprintf(file, "%s", cylinder[index/300].track[index%300/60].sector[index%300%60].bytes_s);
         //Get index new block

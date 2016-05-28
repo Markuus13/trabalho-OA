@@ -32,7 +32,11 @@ cluster get_cluster(cluster *clust, const char *nome_arquivo){
     while( archives[control].file_name[0] != '\0' && control < QUANT_MAX_ARQ ) control++;
 
     strcpy(archives[control].file_name, nome_arquivo);
-    archives[control].first_sector = (z + y + x);
+    archives[control].first_sector = (z*300 + y*60 + x);
+          
+              /* Debug */
+              printf("Debug1");
+    
   }else{
               /*Positon of new cluster - Position of old cluster*/
     control = (z + y + x) - (clust->array_block - new_cluster.array_block);
