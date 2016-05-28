@@ -22,9 +22,9 @@ typedef struct cluster {
   block* array_block;
 } cluster;
 
-extern fatent blocks[SETOR_TRILHA];
+extern fatent blocks[TOTAL_SETORES];
 extern track_array *cylinder;
 
 cluster get_cluster(cluster *,const char *);
 
-#endif //HARD_DRIVE_MOD
+#endif /*HARD_DRIVE_MOD*/

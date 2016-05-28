@@ -16,9 +16,9 @@
 /*Hard Disk*/
 track_array c[TRILHA_SUPERFICIE];
 track_array *cylinder = c;
-//Table of used sectors
+/*Table of used sectors*/
 fatent blocks[TOTAL_SETORES];
-//Table with file name and first sector
+/*Table with file name and first sector*/
 fatlist archives[TOTAL_SETORES];
 
 void show_menu(void);
@@ -48,7 +48,7 @@ int main(void) {
         show_fat_table();
         break;
       case '5':
-        //Leave program
+        /*Leave program*/
         break;
     }
   }while( option != '5' );
