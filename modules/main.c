@@ -4,7 +4,7 @@
 *	Professor: André Drummond
 *	Título: Simulação de Disco Magnético Rígido
 * Alunos: Danilo Santos     140135910
-          Marcus Vinicius   
+          Marcus Vinicius   130032891
 */
 
 #include <stdio.h>
