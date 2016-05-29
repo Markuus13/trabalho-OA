@@ -10,19 +10,19 @@ cluster get_cluster(cluster *clust, const char *nome_arquivo){
   int x, y, z, control;
   cluster new_cluster;
 
-  //Search for a free cluster/sector
+  /*Search for a free cluster/sector*/
   for(z = 0 ; (z < TRILHA_SUPERFICIE) ; z++){ /* Cylinder */
     for(y = 0 ; (y < TRILHA_CILINDRO) ; y++){  /* Tracks */
       for(x = 0 ; (x < SETOR_TRILHA) ; x += TAM_CLUSTER){ /* Clusters (tracks) */
         if( blocks[z*300 + y*60 + x].used == 0 ){
           new_cluster.array_block = cylinder[z].track[y].sector + x;
           break;
-        }// if
-      }// for
+        }/* if */
+      }/* for */
       if( blocks[z*300 + y*60 + x].used == 0 ) break;
-    }// for
+    }/* for */
     if( blocks[z*300 + y*60 + x].used == 0 ) break;
-  }//for
+  }/* for */
 
   /*If its the first cluster*/
   control = 0;

@@ -32,7 +32,7 @@ int main(void) {
     option = get_menu_option();
     switch( option ){
       case '1':
-        system("clear");
+        /*system("clear"); debug*/
         write_file();
         break;
       case '2':
@@ -74,7 +74,7 @@ void show_menu(void){
 char get_menu_option(void){
   char option = '0';
   do{
-    system("clear");
+    /*system("clear"); debug */
     show_menu();
     printf("--> ");
     scanf("%c", &option);

@@ -6,7 +6,7 @@
 #include "hard_drive.h"
 
 void write_file(){
-  char nome_arquivo[20], block;
+  char nome_arquivo[20]/*, block  -- unused variable `block` */;
   int control, index;
   FILE *file;
   cluster cluster_block;
@@ -17,6 +17,8 @@ void write_file(){
   printf("Entre com nome do arquivo : ");
   scanf("%s", nome_arquivo);
   file = fopen(nome_arquivo, "r");
+  
+  printf("DEBUG");
 
   if(file == NULL){
     system("clear");
@@ -77,7 +79,7 @@ void read_file(){
         /* Calculte postion on hard disk */
         printf("index:%d\ncylinder:%d\ttrack:%d\tsector:%d\n", index, index/300, index%300/60, index%300%60);
         fprintf(file, "%s", cylinder[index/300].track[index%300/60].sector[index%300%60].bytes_s);
-        //Get index new block
+        /* Get index new block */
         if( blocks[index].eof != 1 ){
           index = blocks[index].next;
         }else{
@@ -90,7 +92,7 @@ void read_file(){
     }
   }
 
-  //printf("nada? nome:%s index:%d", archives[index].file_name, index);
+  /*printf("nada? nome:%s index:%d", archives[index].file_name, index);*/
 
   getchar();
   getchar();
@@ -103,7 +105,7 @@ void erase_file(){
   printf("Entre com nome do arquivo : ");
   scanf("%s", name);
 
-  //Search for the name in Fat table
+  /*Search for the name in Fat table */
   for(index = 0 ; index < QUANT_MAX_ARQ ; index++)
     if( !strcmp(name, archives[index].file_name) )
       break;
@@ -124,7 +126,7 @@ void erase_file(){
       blocks[control].next = 0;
     }while( index != 0 );
 
-    //Erase file name
+    /*Erase file name*/
     for(index = 0 ; index < 100 ; index++)
       archives[hold].file_name[index] = '\0';
 
