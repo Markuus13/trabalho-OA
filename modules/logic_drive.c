@@ -127,12 +127,17 @@ void show_fat_table(){
   printf("***********************\n");
   printf("*       FAT TABLE     *\n");
   printf("***********************\n");
-  printf("NOME:\t\tTAMANHO EM DISCO\t\tLOCALIZAÇÂO\t\n");
+  printf("NOME:\t\tTAMANHO EM DISCO\tLOCALIZAÇÂO\t\n");
 
   for(index = 0 ; index < QUANT_MAX_ARQ ; index++ ){
     if( archives[index].file_name[0] != '\0' ){
-      printf("%s\t", archives[index].file_name);
+      /* NOME: */
+      printf("%s\t\t", archives[index].file_name);
       index_sector = archives[index].first_sector;
+      /* TAMANHO EM DISCO: */
+      printf("%d Bytes\t\t",get_file_size(index_sector));
+      
+      /* LOCALIZACAO: */
       do{
         printf("%d ", index_sector);
         index_sector = blocks[index_sector].next;

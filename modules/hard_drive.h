@@ -26,5 +26,6 @@ extern fatent blocks[TOTAL_SETORES];
 extern track_array *cylinder;
 
 cluster get_cluster(cluster *,char *);
+int get_file_size(int);
 
 #endif /*HARD_DRIVE_MOD*/

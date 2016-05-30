@@ -35,7 +35,6 @@ cluster get_cluster(cluster *clust,char *nome_arquivo){
 
   /*If its the first cluster*/
   if( clust->array_block == NULL ){
-    printf("Entrou aqui");
     /*Insert the file into FAT Table*/
     /*Search for empty space*/
     control = 0;
@@ -64,4 +63,16 @@ cluster get_cluster(cluster *clust,char *nome_arquivo){
   getchar();
   */
   return new_cluster;
+}
+
+int get_file_size(int index_sector){
+    
+  int cont = 0;
+  
+  do{
+      index_sector = blocks[index_sector].next;
+      cont++;
+    }while( index_sector != 0 );
+    
+  return cont * 512;
 }
