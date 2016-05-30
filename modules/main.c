@@ -4,7 +4,7 @@
 *	Professor: André Drummond
 *	Título: Simulação de Disco Magnético Rígido
 * Alunos: Danilo Santos     140135910
-          Marcus Vinicius   
+          Marcus Vinicius   130032891
 */
 
 #include <stdio.h>
@@ -16,10 +16,10 @@
 /*Hard Disk*/
 track_array c[TRILHA_SUPERFICIE];
 track_array *cylinder = c;
-//Table of used sectors
-fatent blocks[SETOR_TRILHA];
-//Table with file name and first sector
-fatlist archives[QUANT_MAX_ARQ];
+/*Table of used sectors*/
+fatent blocks[TOTAL_SETORES];
+/*Table with file name and first sector*/
+fatlist archives[TOTAL_SETORES];
 
 void show_menu(void);
 
@@ -32,7 +32,7 @@ int main(void) {
     option = get_menu_option();
     switch( option ){
       case '1':
-        system("clear");
+        /*system("clear"); debug*/
         write_file();
         break;
       case '2':
@@ -48,7 +48,7 @@ int main(void) {
         show_fat_table();
         break;
       case '5':
-        //Leave program
+        /*Leave program*/
         break;
     }
   }while( option != '5' );
@@ -74,7 +74,7 @@ void show_menu(void){
 char get_menu_option(void){
   char option = '0';
   do{
-    system("clear");
+    /*system("clear"); debug */
     show_menu();
     printf("--> ");
     scanf("%c", &option);

@@ -6,25 +6,25 @@
 
 /** HD fisico **/
 /* Setor */
-typedef struct block{
+typedef struct block {
   unsigned char bytes_s[TAM_SETOR];
-}block;
+} block;
 /* Trilha */
-typedef struct sector_array{
+typedef struct sector_array {
   block sector[SETOR_TRILHA];
-}sector_array;
+} sector_array;
 /* Cilindro */
-typedef struct track_array{
+typedef struct track_array {
   sector_array track[TRILHA_CILINDRO];
 } track_array;
 
-typedef struct cluster{
+typedef struct cluster {
   block* array_block;
-}cluster;
+} cluster;
 
-extern fatent blocks[SETOR_TRILHA];
+extern fatent blocks[TOTAL_SETORES];
 extern track_array *cylinder;
 
 cluster get_cluster(cluster *,const char *);
 
-#endif //HARD_DRIVE_MOD
+#endif /*HARD_DRIVE_MOD*/

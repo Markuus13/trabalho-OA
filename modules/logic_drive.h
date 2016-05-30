@@ -14,7 +14,7 @@ typedef struct fatent_s{
   unsigned int next;
 }fatent;
 
-extern fatlist archives[QUANT_MAX_ARQ];
+extern fatlist archives[TOTAL_SETORES];
 
 void write_file();
 
@@ -24,4 +24,4 @@ void erase_file();
 
 void show_fat_table();
 
-#endif //LOGIC_DRIVE_MOD
+#endif /*LOGIC_DRIVE_MOD*/

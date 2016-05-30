@@ -1,12 +1,12 @@
-compiler = clang
-name = my_disk.cpp
+compiler = gcc
+name = my_disk
 dir = modules/
-mode = -std=c99
+#mode = -std=c99
 flags = -Wall -g
-#mode = -ansi
+mode = -ansi
 
 all: logic_drive.o hard_drive.o
-	$(compiler) $(flags) $(mode) $(dir)main.c logic_drive.o hard_drive.o -o $(name)
+	$(compiler) $(flags) $(mode) $(dir)main.c $(dir)logic_drive.c $(dir)hard_drive.c -o $(name)
 	#./$(name)
 
 logic_drive.o:

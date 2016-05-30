@@ -10,19 +10,19 @@ cluster get_cluster(cluster *clust, const char *nome_arquivo){
   int x, y, z, control;
   cluster new_cluster;
 
-  //Search for a free cluster/sector
-  for(z = 0 ; (z < TRILHA_CILINDRO) ; z++){
-    for(y = 0 ; (y < TRILHA_SUPERFICIE) ; y++){
-      for(x = 0 ; (x < SETOR_TRILHA) ; x += TAM_CLUSTER){
-        if( blocks[z + y + x].used == 0 ){
+  /*Search for a free cluster/sector*/
+  for(z = 0 ; (z < TRILHA_SUPERFICIE) ; z++){ /* Cylinder */
+    for(y = 0 ; (y < TRILHA_CILINDRO) ; y++){  /* Tracks */
+      for(x = 0 ; (x < SETOR_TRILHA) ; x += TAM_CLUSTER){ /* Clusters (tracks) */
+        if( blocks[z*300 + y*60 + x].used == 0 ){
           new_cluster.array_block = cylinder[z].track[y].sector + x;
           break;
-        }// if
-      }// for
-      if( blocks[z + y + x].used == 0 ) break;
-    }// for
-    if( blocks[z + y + x].used == 0 ) break;
-  }//for
+        }/* if */
+      }/* for */
+      if( blocks[z*300 + y*60 + x].used == 0 ) break;
+    }/* for */
+    if( blocks[z*300 + y*60 + x].used == 0 ) break;
+  }/* for */
 
   /*If its the first cluster*/
   control = 0;
@@ -32,7 +32,11 @@ cluster get_cluster(cluster *clust, const char *nome_arquivo){
     while( archives[control].file_name[0] != '\0' && control < QUANT_MAX_ARQ ) control++;
 
     strcpy(archives[control].file_name, nome_arquivo);
-    archives[control].first_sector = (z + y + x);
+    archives[control].first_sector = (z*300 + y*60 + x);
+          
+              /* Debug */
+              printf("Debug1");
+    
   }else{
               /*Positon of new cluster - Position of old cluster*/
     control = (z + y + x) - (clust->array_block - new_cluster.array_block);
