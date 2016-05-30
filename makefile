@@ -5,7 +5,7 @@ flags = -Wall -g
 mode = -ansi
 
 all: logic_drive.o hard_drive.o
-	$(compiler) $(flags) $(mode) $(dir)main.c *.o -o $(name)
+	$(compiler) $(flags) $(mode) $(dir)main.c $(dir)hard_drive.c $(dir)logic_drive.c -o $(name)
 	./$(name)
 
 logic_drive.o:

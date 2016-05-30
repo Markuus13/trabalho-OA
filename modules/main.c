@@ -34,7 +34,7 @@ int main(void) {
       case '1':
         system("clear");
         write_file();
-        getchar(); getchar();
+        getchar();
         break;
       case '2':
         system("clear");
@@ -52,13 +52,15 @@ int main(void) {
         getchar(); getchar();
         break;
       case '5':
-        /*Leave program*/
+      /*Leave program*/
         break;
     }
   }while( option != '5' );
 
   system("clear");
   printf("Hard Disk had turned off...\n");
+
+ 
 
   return 0;
 }

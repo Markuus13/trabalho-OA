@@ -35,6 +35,7 @@ cluster get_cluster(cluster *clust,char *nome_arquivo){
 
   /*If its the first cluster*/
   if( clust->array_block == NULL ){
+    printf("Entrou aqui");
     /*Insert the file into FAT Table*/
     /*Search for empty space*/
     control = 0;
