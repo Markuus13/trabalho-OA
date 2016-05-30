@@ -6,7 +6,7 @@
 #include "hard_drive.h"
 
 void write_file(){
-  char nome_arquivo[20]/*, block  -- unused variable `block` */;
+  char nome_arquivo[20];
   int control, index;
   FILE *file;
   cluster cluster_block;
@@ -17,14 +17,10 @@ void write_file(){
   printf("Entre com nome do arquivo : ");
   scanf("%s", nome_arquivo);
   file = fopen(nome_arquivo, "r");
-  
-  printf("DEBUG");
 
   if(file == NULL){
     system("clear");
     printf("Arquivo inexistente!!!\n");
-    getchar();
-    getchar();
     return /*void*/;
   }else{
     /* Split the file into blocks */
@@ -38,7 +34,6 @@ void write_file(){
         printf("No space on disk!!!\n");
         break;
       }else{
-        puts("Escrevendo");
         for( index = 0 ; index < TAM_CLUSTER ; index++ ){
           for( control = 0 ; !feof(file) && control < TAM_SETOR ; control++ ){
             fscanf(file, "%c", &cluster_block.array_block[index].bytes_s[control] );
@@ -48,8 +43,7 @@ void write_file(){
       }
     }while( !feof(file) );
 
-    getchar();
-    getchar();
+    puts("Sucesso em escrita");
 
     fclose(file);
   }
@@ -66,7 +60,7 @@ void read_file(){
     if( !strcmp(name, archives[index].file_name) )
       break;
 
-  if( index != 100){
+  if( index != QUANT_MAX_ARQ){
     FILE *file = fopen("saida.txt","w");
     if( file == NULL ){
       printf("Não foi possivel montar arquivo de saida\n");
@@ -74,16 +68,14 @@ void read_file(){
     }else{
       /* Write the archive into a file */
       index = archives[index].first_sector;
-
       do{
         /* Calculte postion on hard disk */
-        printf("index:%d\ncylinder:%d\ttrack:%d\tsector:%d\n", index, index/300, index%300/60, index%300%60);
-        fprintf(file, "%s", cylinder[index/300].track[index%300/60].sector[index%300%60].bytes_s);
+        fprintf(file, "%.512s", cylinder[index/300].track[index%300/60].sector[index%300%60].bytes_s);
         /* Get index new block */
-        if( blocks[index].eof != 1 ){
-          index = blocks[index].next;
-        }else{
+        if( blocks[index].eof == 1 ){
           break;
+        }else{
+          index = blocks[index].next;
         }
       }while(1);
 
@@ -91,11 +83,6 @@ void read_file(){
       puts("Sucesso em extracao");
     }
   }
-
-  /*printf("nada? nome:%s index:%d", archives[index].file_name, index);*/
-
-  getchar();
-  getchar();
 }
 
 void erase_file(){
@@ -132,13 +119,11 @@ void erase_file(){
 
     printf("Sucess on delection!!\n");
   }
-
-  getchar();
-  getchar();
 }
 
 void show_fat_table(){
   unsigned short int index, index_sector;
+
   printf("***********************\n");
   printf("*       FAT TABLE     *\n");
   printf("***********************\n");
@@ -152,10 +137,12 @@ void show_fat_table(){
         printf("%d ", index_sector);
         index_sector = blocks[index_sector].next;
       }while( index_sector != 0 );
-      printf("\n");
+      printf("\n\n");
     }
   }
-
-  getchar();
-  getchar();
+  /*
+  int x;
+  for(x = 0 ; x < 20; x++)
+    printf("block[%d] next:%d\n", x, blocks[x].next);
+  */
 }

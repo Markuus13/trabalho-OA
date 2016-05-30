@@ -25,6 +25,6 @@ typedef struct cluster {
 extern fatent blocks[TOTAL_SETORES];
 extern track_array *cylinder;
 
-cluster get_cluster(cluster *,const char *);
+cluster get_cluster(cluster *,char *);
 
 #endif /*HARD_DRIVE_MOD*/

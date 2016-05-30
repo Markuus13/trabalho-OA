@@ -6,7 +6,7 @@
 #include "hard_drive.h"
 #include "specs.h"
 
-cluster get_cluster(cluster *clust, const char *nome_arquivo){
+cluster get_cluster(cluster *clust,char *nome_arquivo){
   int x, y, z, control;
   cluster new_cluster;
 
@@ -24,35 +24,43 @@ cluster get_cluster(cluster *clust, const char *nome_arquivo){
     if( blocks[z*300 + y*60 + x].used == 0 ) break;
   }/* for */
 
+  /*Mark the next and used sectors*/
+  for(control = 0 ; control < TAM_CLUSTER; control++){
+    blocks[(z*300 + y*60 + x) + control].used = 1;
+    blocks[(z*300 + y*60 + x) + control].next = (z*300 + y*60 + x) + control + 1;
+  }
+  /*Mark the end of file*/
+  blocks[(z*300 + y*60 + x) + control - 1].next = 0;
+  blocks[(z*300 + y*60 + x) + control - 1].eof = 1;
+
   /*If its the first cluster*/
-  control = 0;
   if( clust->array_block == NULL ){
     /*Insert the file into FAT Table*/
     /*Search for empty space*/
+    control = 0;
     while( archives[control].file_name[0] != '\0' && control < QUANT_MAX_ARQ ) control++;
 
-    strcpy(archives[control].file_name, nome_arquivo);
+    strcpy(archives[control].file_name,(const char *) nome_arquivo);
     archives[control].first_sector = (z*300 + y*60 + x);
-          
-              /* Debug */
-              printf("Debug1");
-    
   }else{
               /*Positon of new cluster - Position of old cluster*/
-    control = (z + y + x) - (clust->array_block - new_cluster.array_block);
-    /*Get the index of fourth sector of cluster and change eof*/
-    control = archives[control].first_sector + (TAM_CLUSTER - 1);
-    blocks[control].eof = 0;
-    blocks[control].next = z + y + x;
-  }
-  /*Mark the next and used sectors*/
-  for(control = 0 ; control < TAM_CLUSTER; control++){
-    blocks[(z + y + x) + control].used = 1;
-    blocks[(z + y + x) + control].next = (z + y + x) + control + 1;
-  }
-  /*Mark the end of file*/
-  blocks[(z + y + x) + control - 1].next = 0;
-  blocks[(z + y + x) + control - 1].eof = 1;
+    control = (z*300 + y*60 + x) - (new_cluster.array_block - clust->array_block);
+    control += TAM_CLUSTER;
+    if( control > 0 )
+      control -= 1;
 
+    /*printf("cluster\nactual:%d\tpast:%d\n", (z*300 + y*60 + x), control);*/
+    /*Get the index of fourth sector of cluster and change eof*/
+    blocks[control].eof = 0;
+    blocks[control].next = (z*300 + y*60 + x);
+
+  }
+  /*
+  int b;
+  for(b = 0 ; b < 12; b++)
+    printf("block[%d] next:%d\n", b, blocks[b].next);
+
+  getchar();
+  */
   return new_cluster;
 }

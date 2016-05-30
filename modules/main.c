@@ -32,20 +32,24 @@ int main(void) {
     option = get_menu_option();
     switch( option ){
       case '1':
-        /*system("clear"); debug*/
+        system("clear");
         write_file();
+        getchar(); getchar();
         break;
       case '2':
         system("clear");
         read_file();
+        getchar(); getchar();
         break;
       case '3':
         system("clear");
         erase_file();
+        getchar(); getchar();
         break;
       case '4':
         system("clear");
         show_fat_table();
+        getchar(); getchar();
         break;
       case '5':
         /*Leave program*/
@@ -60,6 +64,7 @@ int main(void) {
 }
 
 void show_menu(void){
+  system("clear");
   printf("***********************\n");
   printf("*       HARD DISK     *\n");
   printf("***********************\n");
