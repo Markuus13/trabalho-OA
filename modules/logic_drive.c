@@ -142,7 +142,7 @@ void show_fat_table(){
         printf("%d ", index_sector);
         index_sector = blocks[index_sector].next;
       }while( index_sector != 0 );
-      printf("\n\n");
+      printf("\n");
     }
   }
   /*

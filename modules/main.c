@@ -60,8 +60,6 @@ int main(void) {
   system("clear");
   printf("Hard Disk had turned off...\n");
 
- 
-
   return 0;
 }
 
