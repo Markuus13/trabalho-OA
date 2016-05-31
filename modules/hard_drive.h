@@ -24,6 +24,7 @@ typedef struct cluster {
 
 extern fatent blocks[TOTAL_SETORES];
 extern track_array *cylinder;
+extern short int operation_time;
 
 cluster get_cluster(cluster *,char *);
 int get_file_size(int);

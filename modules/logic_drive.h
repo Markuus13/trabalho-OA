@@ -15,6 +15,7 @@ typedef struct fatent_s{
 }fatent;
 
 extern fatlist archives[TOTAL_SETORES];
+extern short int operation_time;
 
 void write_file();
 

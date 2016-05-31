@@ -20,6 +20,7 @@ track_array *cylinder = c;
 fatent blocks[TOTAL_SETORES];
 /*Table with file name and first sector*/
 fatlist archives[TOTAL_SETORES];
+short int operation_time;
 
 void show_menu(void);
 
@@ -29,12 +30,13 @@ int main(void) {
   char option = 0;
 
   do{
+    operation_time = 0;
     option = get_menu_option();
     switch( option ){
       case '1':
         system("clear");
         write_file();
-        getchar();
+        getchar(); getchar();
         break;
       case '2':
         system("clear");

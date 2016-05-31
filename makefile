@@ -1,7 +1,7 @@
 compiler = gcc
 name = my_disk
 dir = modules/
-flags = -Wall -g
+flags = -Wall
 mode = -ansi
 
 all: logic_drive.o hard_drive.o

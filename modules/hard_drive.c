@@ -24,6 +24,13 @@ cluster get_cluster(cluster *clust,char *nome_arquivo){
     if( blocks[z*300 + y*60 + x].used == 0 ) break;
   }/* for */
 
+  /*Time of seek*/
+  if( ((new_cluster.array_block - clust->array_block)/TAM_CLUSTER) == 1 ){
+    operation_time += TEMPO_MIN_SEEK;
+  }else{
+    operation_time += TEMPO_MEDIO_SEEK;
+  }
+
   /*Mark the next and used sectors*/
   for(control = 0 ; control < TAM_CLUSTER; control++){
     blocks[(z*300 + y*60 + x) + control].used = 1;
@@ -55,24 +62,18 @@ cluster get_cluster(cluster *clust,char *nome_arquivo){
     blocks[control].next = (z*300 + y*60 + x);
 
   }
-  /*
-  int b;
-  for(b = 0 ; b < 12; b++)
-    printf("block[%d] next:%d\n", b, blocks[b].next);
 
-  getchar();
-  */
   return new_cluster;
 }
 
 int get_file_size(int index_sector){
-    
+
   int cont = 0;
-  
+
   do{
       index_sector = blocks[index_sector].next;
       cont++;
     }while( index_sector != 0 );
-    
+
   return cont * 512;
 }

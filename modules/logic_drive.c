@@ -7,7 +7,7 @@
 
 void write_file(){
   char nome_arquivo[20];
-  int control, index;
+  int control, index, flag;
   FILE *file;
   cluster cluster_block;
   /*Inicialization*/
@@ -16,6 +16,19 @@ void write_file(){
 
   printf("Entre com nome do arquivo : ");
   scanf("%s", nome_arquivo);
+
+  /* Search for the name in Fat table */
+  for(index = 0 ; index < QUANT_MAX_ARQ ; index++)
+    if( strcmp(nome_arquivo, archives[index].file_name) == 0 ){
+      flag = 1;
+      break;
+    }
+
+  if( flag ){
+    printf("Arquivo existente!\n");
+    return /*void*/;
+  }
+
   file = fopen(nome_arquivo, "r");
 
   if(file == NULL){
@@ -47,13 +60,20 @@ void write_file(){
 
     fclose(file);
   }
+
+  printf("Tempo de escrita : %d\n", operation_time);
+
 }
 
 void read_file(){
   char name[20];
-  unsigned short int index;
+  unsigned short int index, control;
   printf("Entre com nome do arquivo : ");
   scanf("%s", name);
+
+  /*Inicialization*/
+  operation_time = TEMPO_MEDIO_SEEK;
+  /****************/
 
   /* Search for the name in Fat table */
   for(index = 0 ; index < QUANT_MAX_ARQ ; index++)
@@ -69,12 +89,21 @@ void read_file(){
       /* Write the archive into a file */
       index = archives[index].first_sector;
       do{
+        control++;
         /* Calculte postion on hard disk */
         fprintf(file, "%.512s", cylinder[index/300].track[index%300/60].sector[index%300%60].bytes_s);
         /* Get index new block */
         if( blocks[index].eof == 1 ){
           break;
         }else{
+          /*Time of seek*/
+          if( (blocks[index].next - index) == 1  && (control/4) ){
+            operation_time += TEMPO_MIN_SEEK;
+            control = 0;
+          }else if( (control/4) ){
+            operation_time += TEMPO_MEDIO_SEEK;
+            control = 0;
+          }
           index = blocks[index].next;
         }
       }while(1);
@@ -83,6 +112,9 @@ void read_file(){
       puts("Sucesso em extracao");
     }
   }
+
+  printf("Tempo de leitura : %d\n", operation_time);
+
 }
 
 void erase_file(){
@@ -136,7 +168,7 @@ void show_fat_table(){
       index_sector = archives[index].first_sector;
       /* TAMANHO EM DISCO: */
       printf("%d Bytes\t\t",get_file_size(index_sector));
-      
+
       /* LOCALIZACAO: */
       do{
         printf("%d ", index_sector);
